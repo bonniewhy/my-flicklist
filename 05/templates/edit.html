@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if watchlist|length > 0 %}
+    <h2>My Watchlist</h2>
+    <form action="/crossoff" method="POST">
+        <ul>
+            {% for movie in watchlist: %}
+            <li>
+                {{ movie }} 
+                <input type="hidden" name="crossed-off-movie" value="{{ movie }}" />
+                <input type="submit" value="I Watched It!" /> 
+            </li>
+            {% endfor %}
+        </ul>
+    </form>
+{% endif %}
+
+<h2>Edit My Watchlist</h2>
+
+<form action="/add" method="POST">
+    <label>
+        I want to add
+        <input type="text" name="new-movie" />
+        to my watchlist.
+    </label>
+    <input type="submit" value="Add It!" />
+</form>
+
+<!-- We added this link to the ratings page, but it won't work until you make the ratings.html file -->
+<h2><a href="/ratings">Ratings</a></h2>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+{% endblock %}
