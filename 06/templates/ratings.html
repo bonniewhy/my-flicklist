@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Movies I Have Watched:</h2>
+
+<ul>
+    {% for movie in movies %}
+        <li>
+            <h3>{{ movie.name }}</h3>
+            <form action="/rating-confirmation" method="POST">
+                <label>
+                    My Rating:
+                    <select name="rating">
+                    <!-- TODO: If the user has rated a movie, make the select
+                    box default to that rating when they visit this page.
+                        Hint: How can you use jinja2's templates to include
+                        a tag (or text) only if a server side condition is met? -->
+                    {% for rating in movie %}
+                        <option>{{ movie.rating }}</option>
+                    {% endfor %}
+                    <select>
+                </label>
+                <input type="hidden" name="movie_id" value="{{ movie.id }}" />
+                <input type="submit" value="Rate it!" />
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
