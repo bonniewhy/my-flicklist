@@ -10,12 +10,12 @@
                 <label>
                     My Rating:
                     <select name="rating">
-                    <!-- TODO: If the user has rated a movie, make the select
+                    <!-- [X] TODO: If the user has rated a movie, make the select
                     box default to that rating when they visit this page.
                         Hint: How can you use jinja2's templates to include
                         a tag (or text) only if a server side condition is met? -->
-                    {% for rating in movie %}
-                        <option>{{ movie.rating }}</option>
+                    {% for rating in ["How was it?", "*", "**", "***", "****", "*****"] %}
+                        <option {% if rating==movie.rating %}selected{% endif %}>{{ rating }}</option>
                     {% endfor %}
                     <select>
                 </label>

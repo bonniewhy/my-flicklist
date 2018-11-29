@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flicklist</title>
+        <style type="text/css">
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="float: right">
+            {% if 'user' in session %}
+                {{ session['user'] }}
+                <form action="/logout" method="POST">
+                    <input type="submit" value="Log Out" />
+                </form>
+            {% else %}
+                <a href="/login">login</a> | <a href="/register">register</a>
+            {% endif %}
+        </div>
+        <h1>
+            <a href="/">Flicklist</a>
+        </h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}    
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

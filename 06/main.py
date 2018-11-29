@@ -13,9 +13,9 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(120))
     watched = db.Column(db.Boolean)
-    rating = db.Column(db.String(120))
+    rating = db.Column(db.String(20))
 
-    # TODO --- Add a ratings column to the Movie table.
+    # [X] TODO --- Add a ratings column to the Movie table.
 
     def __init__(self, name):
         self.name = name
@@ -37,9 +37,9 @@ def get_current_watchlist():
     return Movie.query.filter_by(watched = False).all()
 
 def get_watched_movies():
-    return Movie.query.filter_by(watched = False).all()
+    return Movie.query.filter_by(watched = True).all()
 
-# Create a new rout called rate_movie which handles a POST request on
+# Create a new route called rate_movie which handles a POST request on
 # /rating-confirmation
 @app.route("/rating-confirmation", methods=['POST'])
 def rate_movie():
@@ -57,10 +57,13 @@ def rate_movie():
 
     # If we didn't redirect by now, then all is well.
 
-    # TODO --- Make a persistent change to the model so that you STORE the
+    # [X] TODO --- Make a persistent change to the model so that you STORE the
     # rating in the database (Note: the next TODO is in templates/ratings.html)
+    movie.rating = rating
+    db.session.add(movie)
+    db.session.commit()
 
-    return render_tempate('rating-confirmation.html', movie = movie, rating = rating)
+    return render_template('rating-confirmation.html', movie = movie, rating = rating)
 
 # Creates a new route called movie_ratings which handles a GET on /ratings
 @app.route("/ratings", methods=['GET'])
