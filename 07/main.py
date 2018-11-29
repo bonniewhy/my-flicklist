@@ -49,7 +49,7 @@ def get_current_watchlist():
 def get_watched_movies():
     return Movie.query.filter_by(watched = True).all()
 
-# [ ] TODO 3 -- Add "/login" GET and POST routes.
+# [X] TODO 3 -- Add "/login" GET and POST routes.
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -77,7 +77,7 @@ def login():
             return redirect('/login')
 
         elif existing_user and existing_user.password == password:
-            session['email'] = email
+            session['user'] = email
             return redirect('/')
 
 # [X] TODO 4 -- Create login template with username and password.
@@ -206,7 +206,7 @@ def index():
 @app.before_request
 def require_login():
     allowed_routes = ['login', 'register']
-    if request.endpoint not in allowed_routes and 'email' not in session:
+    if request.endpoint not in allowed_routes and 'user' not in session:
         return redirect('/login')
 
 # In a real application, this should be kept secret (i.e. not on github)

@@ -9,19 +9,16 @@
         </style>
     </head>
     <body>
-        <div style='float: right'>
+        <div style="float: right">
             {% if 'user' in session %}
                 {{ session['user'] }}
-                <form action="/logout" method="POST" id='logout'>
+                <form action="/logout" method="POST" id="logout">
                     <input type="submit" value="Log Out" />
                 </form>
             {% else %}
                 <a href="/login">login</a> | <a href="/register">register</a>
             {% endif %}
         </div>
-        <h1>
-            <a href="/">Flicklist</a>
-        </h1>
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -31,7 +28,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-        {% endwith %}    
+        {% endwith %}
 
         {% block content %}
         {% endblock %}
